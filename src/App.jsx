@@ -2,16 +2,18 @@ import { useState, useEffect } from 'react'
 import { KIPLINGS_CONFIG } from './config/kiplingsConfig'
 
 function App() {
-  const { brand, links, about } = KIPLINGS_CONFIG
+  const { brand, links, locationsSection, gallery, reviews } = KIPLINGS_CONFIG
 
   // Interactive Modals State
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false)
+  const [selectedGalleryImg, setSelectedGalleryImg] = useState(null)
 
   // Keyboard accessibility: Close modal on Escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         setIsOrderModalOpen(false)
+        setSelectedGalleryImg(null)
       }
     }
     window.addEventListener('keydown', handleKeyDown)
@@ -20,7 +22,7 @@ function App() {
 
   // Prevent background scroll when modal is active
   useEffect(() => {
-    if (isOrderModalOpen) {
+    if (isOrderModalOpen || selectedGalleryImg) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'unset'
@@ -28,7 +30,7 @@ function App() {
     return () => {
       document.body.style.overflow = 'unset'
     }
-  }, [isOrderModalOpen])
+  }, [isOrderModalOpen, selectedGalleryImg])
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -59,13 +61,10 @@ function App() {
           </div>
         </div>
 
-        {/* Location Tag */}
+        {/* Sub-Descriptor Pill (Brand-wide) */}
         <div>
-          <div className="inline-flex items-center gap-1.5 text-[0.72rem] font-semibold tracking-[0.16em] text-gold-light bg-gold-primary/10 border border-gold-border px-3 py-1 rounded-full mt-2 uppercase">
-            <svg className="w-3 h-3 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-            </svg>
-            <span>{brand.locationShort}</span>
+          <div className="inline-flex items-center gap-1.5 text-[0.72rem] font-semibold tracking-[0.18em] text-gold-light bg-gold-primary/10 border border-gold-border px-3.5 py-1 rounded-full mt-2 uppercase">
+            <span>{brand.subDescriptor}</span>
           </div>
         </div>
 
@@ -84,14 +83,14 @@ function App() {
       {/* =========================================================================
           MAIN CONTENT AREA
           ========================================================================= */}
-      <main className="p-4 sm:p-5 flex flex-col gap-6 pb-10">
+      <main className="p-4 sm:p-5 flex flex-col gap-8 pb-10">
         
         {/* =======================================================================
-            SECTION 2: PRIMARY ACTION BUTTONS (LINKTREE CTAs)
+            SECTION 2: PRIMARY ACTION BUTTONS (LINKTREE CTAs - ALL IN DEEP NAVY)
             ======================================================================= */}
         <section className="flex flex-col gap-3" aria-label="Primary Actions">
           
-          {/* 01: VIEW MENU (Links directly to Menu PDF) */}
+          {/* 01: VIEW MENU */}
           <a
             href={links.menuPdfUrl}
             target="_blank"
@@ -120,7 +119,7 @@ function App() {
             </div>
           </a>
 
-          {/* 02: ORDER ONLINE (Matching Deep Blue / Navy Color with Gold Accents) */}
+          {/* 02: ORDER ONLINE */}
           <button
             type="button"
             className="w-full min-h-[66px] px-4 py-3.5 bg-navy-deep border-[1.5px] border-gold-primary text-cream rounded-[2px] flex items-center justify-between transition-all duration-200 hover:-translate-y-0.5 hover:bg-navy-surface hover:border-gold-light shadow-[0_6px_20px_rgba(19,21,44,0.2)] active:translate-y-0 text-left group cursor-pointer"
@@ -148,28 +147,28 @@ function App() {
             </div>
           </button>
 
-          {/* 03: RESERVE TABLE */}
+          {/* 03: RESERVE TABLE (Matching Navy Deep Color & Gold Accents) */}
           <a
             href={links.reserveTableUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full min-h-[58px] px-4 py-3.5 bg-white border border-navy-deep text-navy-deep rounded-[2px] flex items-center justify-between transition-all duration-200 hover:-translate-y-0.5 hover:border-gold-dark hover:shadow-[0_6px_16px_rgba(19,21,44,0.09)] active:translate-y-0 text-left group cursor-pointer"
+            className="w-full min-h-[66px] px-4 py-3.5 bg-navy-deep border-[1.5px] border-gold-primary text-cream rounded-[2px] flex items-center justify-between transition-all duration-200 hover:-translate-y-0.5 hover:bg-navy-surface hover:border-gold-light shadow-[0_6px_20px_rgba(19,21,44,0.2)] active:translate-y-0 text-left group cursor-pointer"
           >
             <div className="flex items-center gap-3.5">
-              <span className="font-caps-accent text-xs font-bold text-gold-dark pr-3 border-r border-navy-deep/15 tracking-wider min-w-[28px]">
+              <span className="font-caps-accent text-sm font-bold text-gold-primary pr-3 border-r border-gold-border tracking-wider min-w-[28px]">
                 03
               </span>
               <div className="flex flex-col">
-                <span className="font-caps-accent text-sm font-bold tracking-[0.14em] text-navy-deep leading-snug">
+                <span className="font-caps-accent text-base font-bold tracking-[0.14em] text-gold-light leading-snug">
                   RESERVE TABLE
                 </span>
-                <span className="text-xs text-navy-surface-light/80 mt-0.5 font-normal">
+                <span className="text-xs text-cream-dark/90 mt-0.5 font-normal">
                   Dine-In Reservations & Enquiries
                 </span>
               </div>
             </div>
-            <div className="w-8 h-8 flex items-center justify-center border border-navy-deep/15 rounded-[2px] text-navy-deep transition-all duration-200 group-hover:bg-navy-deep group-hover:text-gold-light group-hover:border-navy-deep shrink-0">
-              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <div className="w-8 h-8 flex items-center justify-center bg-gold-primary/15 border border-gold-primary/50 rounded-[2px] text-gold-light transition-all duration-200 group-hover:bg-gold-primary group-hover:text-navy-deep shrink-0">
+              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
                 <line x1="16" y1="2" x2="16" y2="6" />
                 <line x1="8" y1="2" x2="8" y2="6" />
@@ -208,69 +207,19 @@ function App() {
         </section>
 
         {/* =======================================================================
-            SECTION 3: VISIT US (LOCATION & CONTACT CARD)
+            SECTION 3: PHOTO GALLERY (FOOD & AMBIENCE)
             ======================================================================= */}
-        <section className="bg-white border border-navy-deep p-5 rounded-[2px] text-center shadow-[0_4px_20px_rgba(19,21,44,0.06)] relative" aria-label="Restaurant Location and Contact">
-          <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-gold-primary pointer-events-none" aria-hidden="true" />
-          <div className="absolute top-2 right-2 w-3 h-3 border-t border-r border-gold-primary pointer-events-none" aria-hidden="true" />
-          <div className="absolute bottom-2 left-2 w-3 h-3 border-b border-l border-gold-primary pointer-events-none" aria-hidden="true" />
-          <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-gold-primary pointer-events-none" aria-hidden="true" />
-
-          <span className="font-caps-accent text-[0.72rem] font-bold tracking-[0.24em] text-gold-dark uppercase mb-1 block">
-            CONTACT & VISIT
-          </span>
-          <h2 className="font-serif-title text-[1.28rem] text-navy-deep font-bold mb-1">
-            KIPLINGS DELI & BISTRO
-          </h2>
-          
-          <div className="text-[0.86rem] text-navy-surface-light/85 leading-relaxed mb-3 flex flex-col gap-1 items-center">
-            <p className="flex items-center justify-center gap-1.5 font-medium">
-              <svg className="w-3.5 h-3.5 text-gold-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              <span>{brand.locationShort}</span>
-            </p>
-            <p className="text-xs text-navy-surface-light/70">{brand.locationFull}</p>
-            <div className="flex items-center justify-center gap-4 mt-1 text-xs text-navy-deep font-medium">
-              <a href={`tel:${links.phoneNumber}`} className="hover:text-gold-dark underline-offset-2 hover:underline">
-                {links.phoneDisplay}
-              </a>
-              <span>·</span>
-              <a href={`mailto:${links.email}`} className="hover:text-gold-dark underline-offset-2 hover:underline">
-                {links.email}
-              </a>
-            </div>
-          </div>
-
-          <div className="inline-block text-[0.76rem] font-semibold tracking-wide text-navy-deep bg-cream-soft border border-navy-deep/10 px-3 py-1 rounded-full mb-4">
-            {brand.hours}
-          </div>
-
-          <a
-            href={links.googleMaps}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full min-h-[50px] bg-navy-deep text-gold-light border border-gold-primary font-caps-accent text-sm font-bold tracking-[0.16em] uppercase flex items-center justify-center gap-2 rounded-[2px] hover:bg-navy-surface transition-colors"
-          >
-            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-              <polygon points="3 11 22 2 13 21 11 13 3 11" />
-            </svg>
-            <span>GET DIRECTIONS</span>
-          </a>
-        </section>
-
-        {/* =======================================================================
-            SECTION 4: ABOUT KIPLINGS (EDITORIAL STORY)
-            ======================================================================= */}
-        <section className="pt-1" aria-labelledby="about-heading">
+        <section className="pt-1" aria-labelledby="gallery-heading">
           <header className="text-center mb-4 relative">
             <span className="font-caps-accent text-[0.72rem] font-bold tracking-[0.24em] text-gold-dark uppercase mb-1 block">
-              {about.eyebrow}
+              {gallery.eyebrow}
             </span>
-            <h2 id="about-heading" className="font-serif-display text-[1.65rem] font-semibold text-navy-deep leading-tight tracking-tight">
-              {about.headline}
+            <h2 id="gallery-heading" className="font-serif-display text-[1.75rem] font-semibold text-navy-deep leading-tight">
+              {gallery.headline}
             </h2>
+            <p className="text-[0.84rem] text-navy-surface-light/80 mt-1 max-w-[340px] mx-auto leading-relaxed">
+              {gallery.subtitle}
+            </p>
             <div className="flex items-center justify-center gap-3 my-2.5 mx-auto w-24">
               <span className="h-[1px] flex-1 bg-gold-border" />
               <span className="w-1.5 h-1.5 bg-gold-primary rotate-45" />
@@ -278,29 +227,211 @@ function App() {
             </div>
           </header>
 
-          <div className="flex flex-col gap-3">
-            {about.storyCards.map((card, index) => (
-              <article key={index} className="bg-white border border-gold-primary/40 p-4 rounded-[2px] shadow-[0_4px_20px_rgba(19,21,44,0.06)]">
-                <div className="flex items-center gap-2.5 mb-2">
-                  <span className="font-caps-accent text-[0.72rem] font-bold text-gold-dark bg-gold-primary/15 px-1.5 py-0.5 rounded-[2px]">
-                    {card.number}
-                  </span>
-                  <h3 className="font-serif-title text-[1.05rem] font-semibold text-navy-deep">
-                    {card.title}
-                  </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {gallery.images.map((item, idx) => (
+              <div
+                key={idx}
+                className="group relative overflow-hidden rounded-[2px] border border-gold-primary/30 bg-navy-deep shadow-md cursor-pointer"
+                onClick={() => setSelectedGalleryImg(item)}
+              >
+                <div className="aspect-[4/3] w-full overflow-hidden">
+                  <img
+                    src={item.url}
+                    alt={item.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
                 </div>
-                <p className="text-[0.85rem] leading-relaxed text-navy-surface-light/85">
-                  {card.quote}
-                </p>
-              </article>
+                <div className="p-3 bg-navy-deep text-cream">
+                  <h3 className="font-serif-title text-sm font-semibold text-gold-light leading-snug">
+                    {item.title}
+                  </h3>
+                  <p className="text-[0.72rem] text-cream-dark/75 mt-0.5">
+                    {item.caption}
+                  </p>
+                </div>
+              </div>
             ))}
           </div>
         </section>
 
         {/* =======================================================================
-            SECTION 5: SOCIAL, WEBSITE & COMMUNITY
+            SECTION 4: GUEST EXPERIENCES & GOOGLE REVIEWS
             ======================================================================= */}
-        <section className="text-center pt-2" aria-label="Social Channels and Website">
+        <section className="bg-white border border-gold-primary/35 p-5 rounded-[2px] shadow-[0_4px_20px_rgba(19,21,44,0.06)] relative" aria-labelledby="reviews-heading">
+          <header className="text-center mb-4">
+            <span className="font-caps-accent text-[0.72rem] font-bold tracking-[0.24em] text-gold-dark uppercase mb-1 block">
+              {reviews.eyebrow}
+            </span>
+            <h2 id="reviews-heading" className="font-serif-display text-[1.65rem] font-semibold text-navy-deep leading-tight">
+              {reviews.headline}
+            </h2>
+            
+            {/* Google Rating Star Badge */}
+            <div className="inline-flex items-center gap-1.5 bg-cream-soft border border-navy-deep/10 px-3 py-1 rounded-full mt-2">
+              <span className="text-gold-dark text-sm">★★★★★</span>
+              <span className="font-semibold text-xs text-navy-deep">{reviews.overallRating}</span>
+              <span className="text-[0.72rem] text-navy-surface-light/70">· {reviews.totalReviewsText}</span>
+            </div>
+          </header>
+
+          <div className="flex flex-col gap-3 my-4">
+            {reviews.items.map((rev, idx) => (
+              <div key={idx} className="p-3.5 bg-cream/60 border border-gold-border/40 rounded-[2px]">
+                <div className="flex justify-between items-center mb-1.5">
+                  <span className="font-serif-title text-sm font-bold text-navy-deep">{rev.name}</span>
+                  <span className="text-gold-dark text-xs">★★★★★</span>
+                </div>
+                <p className="font-serif-display italic text-xs leading-relaxed text-navy-surface-light/90">
+                  “{rev.review}”
+                </p>
+                <div className="text-[0.68rem] text-gold-dark font-medium mt-1 uppercase tracking-wider">
+                  Verified {rev.source}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <a
+            href={links.googleReviews}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full min-h-[46px] bg-navy-deep text-gold-light border border-gold-primary font-caps-accent text-xs font-bold tracking-[0.14em] uppercase flex items-center justify-center gap-2 rounded-[2px] hover:bg-navy-surface transition-colors"
+          >
+            <span>VIEW ALL GOOGLE REVIEWS</span>
+            <span>→</span>
+          </a>
+        </section>
+
+        {/* =======================================================================
+            SECTION 5: FIND US / OUR LOCATIONS (MATCHING REFERENCE DESIGN EXACTLY)
+            ======================================================================= */}
+        <section className="bg-navy-deep text-cream p-5 sm:p-6 border border-gold-border rounded-[2px] relative shadow-[0_8px_30px_rgba(13,14,32,0.3)]" aria-labelledby="locations-heading">
+          {/* Menu-inspired Gold Corner Accents */}
+          <div className="absolute top-2.5 left-2.5 w-3.5 h-3.5 border-t border-l border-gold-primary pointer-events-none" aria-hidden="true" />
+          <div className="absolute top-2.5 right-2.5 w-3.5 h-3.5 border-t border-r border-gold-primary pointer-events-none" aria-hidden="true" />
+          <div className="absolute bottom-2.5 left-2.5 w-3.5 h-3.5 border-b border-l border-gold-primary pointer-events-none" aria-hidden="true" />
+          <div className="absolute bottom-2.5 right-2.5 w-3.5 h-3.5 border-b border-r border-gold-primary pointer-events-none" aria-hidden="true" />
+
+          {/* Section Heading */}
+          <header className="text-center mb-5">
+            <span className="font-caps-accent text-[0.72rem] font-bold tracking-[0.24em] text-gold-primary uppercase block mb-1">
+              {locationsSection.eyebrow}
+            </span>
+            <h2 id="locations-heading" className="font-serif-display text-[2rem] font-bold text-gold-light tracking-wide leading-tight uppercase">
+              {locationsSection.headline}
+            </h2>
+            <p className="text-[0.84rem] text-cream-dark/90 mt-1 max-w-[340px] mx-auto font-light leading-relaxed">
+              {locationsSection.subtitle}
+            </p>
+          </header>
+
+          {/* Active Location Card (Inorbit Mall, Hyderabad) */}
+          <div className="bg-navy-surface border border-gold-primary/30 rounded-[2px] overflow-hidden mb-4 shadow-lg">
+            {/* Croissant Installation Image with NOW OPEN Badge */}
+            <div className="relative aspect-[16/9] w-full overflow-hidden bg-navy-dark">
+              <img
+                src={locationsSection.activeLocation.image}
+                alt={locationsSection.activeLocation.name}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <span className="absolute top-3 left-3 bg-[#DFB76C] text-navy-dark font-caps-accent text-[0.68rem] font-extrabold tracking-[0.16em] px-2.5 py-1 rounded-[2px] uppercase shadow-md">
+                {locationsSection.activeLocation.badge}
+              </span>
+            </div>
+
+            {/* Location Details Body */}
+            <div className="p-4 flex flex-col gap-3">
+              <h3 className="font-serif-title text-[1.18rem] font-bold text-gold-light tracking-wide uppercase">
+                {locationsSection.activeLocation.name}
+              </h3>
+
+              <div className="flex flex-col gap-2.5 text-xs text-cream-dark/90">
+                {/* Address */}
+                <div className="flex items-start gap-2.5">
+                  <svg className="w-4 h-4 text-gold-primary shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                  <div>
+                    <p className="font-medium text-cream">{locationsSection.activeLocation.address}</p>
+                  </div>
+                </div>
+
+                {/* Hours */}
+                <div className="flex items-center gap-2.5">
+                  <svg className="w-4 h-4 text-gold-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                  <p>{locationsSection.activeLocation.hours}</p>
+                </div>
+
+                {/* Phone */}
+                <div className="flex items-center gap-2.5">
+                  <svg className="w-4 h-4 text-gold-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                  <a href={`tel:${locationsSection.activeLocation.phone}`} className="hover:text-gold-light hover:underline">
+                    {locationsSection.activeLocation.phone}
+                  </a>
+                </div>
+
+                {/* Email */}
+                <div className="flex items-center gap-2.5">
+                  <svg className="w-4 h-4 text-gold-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <polyline points="22,6 12,13 2,6" />
+                  </svg>
+                  <a href={`mailto:${locationsSection.activeLocation.email}`} className="hover:text-gold-light hover:underline">
+                    {locationsSection.activeLocation.email}
+                  </a>
+                </div>
+              </div>
+
+              {/* Get Directions Button */}
+              <a
+                href={locationsSection.activeLocation.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 w-full min-h-[46px] bg-navy-deep text-gold-light border border-gold-primary font-caps-accent text-xs font-bold tracking-[0.16em] uppercase flex items-center justify-center gap-2 rounded-[2px] hover:bg-gold-primary hover:text-navy-deep transition-colors"
+              >
+                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                  <polygon points="3 11 22 2 13 21 11 13 3 11" />
+                </svg>
+                <span>GET DIRECTIONS</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Upcoming Locations (Delhi & Chennai Coming Soon Cards) */}
+          <div className="grid grid-cols-2 gap-3">
+            {locationsSection.upcomingLocations.map((loc, idx) => (
+              <div key={idx} className="p-3.5 bg-navy-surface/80 border border-dashed border-gold-primary/30 rounded-[2px] flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-[2px] bg-navy-deep border border-gold-primary/30 flex items-center justify-center text-gold-primary shrink-0">
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="font-caps-accent text-xs font-bold tracking-wider text-gold-light">
+                    {loc.city}
+                  </h4>
+                  <p className="text-[0.68rem] text-cream-dark/60 mt-0.5">
+                    {loc.status}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* =======================================================================
+            SECTION 6: SOCIAL, WEBSITE & COMMUNITY
+            ======================================================================= */}
+        <section className="text-center pt-1" aria-label="Social Channels and Website">
           <span className="font-caps-accent text-[0.72rem] font-bold tracking-[0.24em] text-gold-dark uppercase block mb-3">
             CONNECT WITH KIPLINGS
           </span>
@@ -366,7 +497,7 @@ function App() {
       </main>
 
       {/* =========================================================================
-          SECTION 6: EDITORIAL FOOTER
+          SECTION 7: BRAND FOOTER
           ========================================================================= */}
       <footer className="bg-navy-dark text-cream p-7 text-center border-t border-gold-border mt-auto">
         <div className="font-serif-display text-[1.35rem] font-bold text-gold-light tracking-wide uppercase">
@@ -375,16 +506,13 @@ function App() {
         <div className="font-caps-accent text-[0.7rem] tracking-[0.22em] text-gold-primary mt-0.5">
           {brand.descriptor}
         </div>
-        <div className="text-xs text-cream-dark/70 mt-2 tracking-wide">
-          {brand.locationShort}
-        </div>
         <p className="font-serif-display italic text-[0.86rem] text-gold-primary/90 mt-4 pt-3 border-t border-dashed border-gold-border/30">
           “Curiosity is welcome · Conversation is unhurried · A long lunch is never wasted time.”
         </p>
       </footer>
 
       {/* =========================================================================
-          INTERACTIVE MODAL: ORDER ONLINE SELECTOR (BOTTOM SHEET)
+          INTERACTIVE MODAL 1: ORDER ONLINE SELECTOR (BOTTOM SHEET)
           ========================================================================= */}
       {isOrderModalOpen && (
         <div
@@ -494,6 +622,47 @@ function App() {
                   Chat →
                 </span>
               </a>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* =========================================================================
+          INTERACTIVE MODAL 2: GALLERY LIGHTBOX PREVIEW
+          ========================================================================= */}
+      {selectedGalleryImg && (
+        <div
+          className="fixed inset-0 bg-navy-dark/90 backdrop-blur-md z-50 flex items-center justify-center p-4"
+          onClick={() => setSelectedGalleryImg(null)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            className="bg-navy-deep border border-gold-primary/40 rounded-[2px] max-w-[420px] w-full overflow-hidden shadow-2xl relative animate-in fade-in zoom-in-95 duration-200"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative aspect-[4/3] w-full">
+              <img
+                src={selectedGalleryImg.url}
+                alt={selectedGalleryImg.title}
+                className="w-full h-full object-cover"
+              />
+              <button
+                type="button"
+                className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-navy-dark/80 text-gold-light border border-gold-border rounded-full hover:bg-gold-primary hover:text-navy-deep transition-colors"
+                onClick={() => setSelectedGalleryImg(null)}
+                aria-label="Close image"
+              >
+                ×
+              </button>
+            </div>
+            <div className="p-4 text-center">
+              <h3 className="font-serif-title text-base font-semibold text-gold-light">
+                {selectedGalleryImg.title}
+              </h3>
+              <p className="text-xs text-cream-dark/80 mt-1">
+                {selectedGalleryImg.caption}
+              </p>
             </div>
           </div>
         </div>

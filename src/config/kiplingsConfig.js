@@ -2,7 +2,7 @@
  * KIPLINGS DELI & BISTRO - Configuration & Content
  * 
  * Edit this file to update links, phone numbers, addresses,
- * and brand copy without touching any UI code.
+ * reviews, gallery images, and locations without touching UI code.
  */
 
 export const KIPLINGS_CONFIG = {
@@ -11,8 +11,6 @@ export const KIPLINGS_CONFIG = {
     name: "KIPLING'S",
     descriptor: "DÉLI & BISTRO",
     subDescriptor: "DELI · BISTRO · BAKERY · COFFEE",
-    locationShort: "4th Floor, Inorbit Mall, Hyderabad",
-    locationFull: "4th Floor, Inorbit Mall, Mindspace, Madhapur, Hyderabad, Telangana 500081",
     tagline: "Not your usual café.",
     heroDescription: "Kiplings is a deli and bistro experience crafted around slow mornings, fresh bakes, honest food, and the art of staying a little longer.",
     hours: "Open Daily · 11:00 AM – 11:00 PM",
@@ -23,9 +21,9 @@ export const KIPLINGS_CONFIG = {
 
   // Primary Action Links
   links: {
-    // Menu PDF Link (can be local public file like /menu.pdf or any hosted URL)
+    // Menu PDF Link
     menuPdfUrl: "/menu.pdf", 
-    // Table Reservation Link (WhatsApp or direct booking link)
+    // Table Reservation Link (WhatsApp or direct booking)
     reserveTableUrl: "https://wa.me/917075179853?text=Hi%20Kiplings!%20I%20would%20like%20to%20reserve%20a%20table.",
     // Online Ordering URLs
     orderOnline: {
@@ -33,8 +31,9 @@ export const KIPLINGS_CONFIG = {
       swiggy: "https://www.swiggy.com/restaurants/kiplings-deli-bistro-inorbit-mall-hyderabad",
       directOrder: "https://wa.me/917075179853?text=Hi%20Kiplings%2C%20I%20would%20like%20to%20place%20an%20order"
     },
-    // Google Maps Link
+    // Google Maps & Reviews
     googleMaps: "https://maps.google.com/?q=Inorbit+Mall+Hyderabad+Level+4+Kiplings",
+    googleReviews: "https://maps.google.com/?q=Inorbit+Mall+Hyderabad+Level+4+Kiplings",
     // WhatsApp Contact
     whatsappNumber: "917075179853",
     whatsappDisplay: "+91 70751 79853",
@@ -52,30 +51,81 @@ export const KIPLINGS_CONFIG = {
     facebook: "https://www.facebook.com/p/Kiplings-D%C3%A9li-Bistro-61569217785741/",
   },
 
-  // Editorial Story ("About Kiplings")
-  about: {
-    eyebrow: "ABOUT KIPLINGS",
-    headline: "A deli. A bistro. A place to linger.",
-    storyCards: [
+  // Locations Structure (Matching "FIND US" section)
+  locationsSection: {
+    eyebrow: "OUR LOCATIONS",
+    headline: "FIND US",
+    subtitle: "Visit Kiplings for a European bistro experience in the heart of the city.",
+    activeLocation: {
+      name: "INORBIT MALL, HYDERABAD",
+      badge: "NOW OPEN",
+      address: "4th Floor, Inorbit Mall, Hyderabad, Telangana",
+      hours: "Mon - Sun · 11:00 AM – 11:00 PM",
+      phone: "+91 70751 79853",
+      email: "hi@kiplingsdeli.com",
+      image: "/inorbit-croissant.jpg",
+      mapsUrl: "https://maps.google.com/?q=Inorbit+Mall+Hyderabad+Level+4+Kiplings"
+    },
+    upcomingLocations: [
       {
-        number: "01",
-        title: "The Delicatessen Philosophy",
-        quote: "A deli as in delicatessen is where freshness comes first. At Kiplings, it’s our way of bringing everyday indulgence to the table."
+        city: "DELHI",
+        status: "Coming soon"
       },
       {
-        number: "02",
-        title: "Everything Begins In-House",
-        quote: "From our sauces and spreads to our desserts, doughs, and bakes, everything at Kiplings is made in-house with intention and care."
+        city: "CHENNAI",
+        status: "Coming soon"
+      }
+    ]
+  },
+
+  // Food & Ambience Photo Gallery
+  gallery: {
+    eyebrow: "THE EXPERIENCE",
+    headline: "Food & Ambience",
+    subtitle: "Slow mornings, live baking, artisan brews, and bistro comfort plates.",
+    images: [
+      {
+        url: "/food-coffee.jpg",
+        title: "Artisan Bakes & Brews",
+        caption: "Orange Americano & Flaky Pain au Chocolat"
       },
       {
-        number: "03",
-        title: "The Ovens Are Always Busy",
-        quote: "Live baking is at the heart of the Kiplings experience. The smell of fresh bread, buttery layers, and warm desserts is part of what makes every visit memorable."
+        url: "/bistro-ambience.jpg",
+        title: "European Bistro Vibe",
+        caption: "Warm ambiance crafted for long conversations"
       },
       {
-        number: "04",
-        title: "Fresh Food, Always",
-        quote: "Thoughtfully prepared sandwiches, pizzas, coffees, desserts, and comfort plates designed to feel indulgent without trying too hard."
+        url: "/inorbit-croissant.jpg",
+        title: "Live Kitchen Creations",
+        caption: "Freshly laminated viennoiserie daily"
+      }
+    ]
+  },
+
+  // Guest Reviews & Testimonials
+  reviews: {
+    eyebrow: "GUEST EXPERIENCES",
+    headline: "Love for Kiplings",
+    overallRating: "4.9",
+    totalReviewsText: "500+ Google Reviews",
+    items: [
+      {
+        name: "Ananya R.",
+        rating: 5,
+        review: "Finally, a real European-style deli bistro! The almond croissant is super flaky and the Orange Americano is hands down the best in the city.",
+        source: "Google Review"
+      },
+      {
+        name: "Rohit Verma",
+        rating: 5,
+        review: "Such a warm, unhurried vibe. The Truffle Mushroom Bombs and live bakes make it the perfect place to linger over coffee.",
+        source: "Google Review"
+      },
+      {
+        name: "Pooja Mehta",
+        rating: 5,
+        review: "The aesthetic, the sourdough sandwiches, and the hospitality are top tier. Feels like stepping into a Paris bistro.",
+        source: "Google Review"
       }
     ]
   }
