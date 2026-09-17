@@ -8,6 +8,25 @@ function App() {
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false)
   const [selectedGalleryImg, setSelectedGalleryImg] = useState(null)
 
+  // Single Image Carousel State for Food & Ambience
+  const [activeSlide, setActiveSlide] = useState(0)
+
+  // Auto-play slider effect for gallery (slides every 4 seconds)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % gallery.images.length)
+    }, 4000)
+    return () => clearInterval(timer)
+  }, [gallery.images.length])
+
+  const nextSlide = () => {
+    setActiveSlide((prev) => (prev + 1) % gallery.images.length)
+  }
+
+  const prevSlide = () => {
+    setActiveSlide((prev) => (prev - 1 + gallery.images.length) % gallery.images.length)
+  }
+
   // Keyboard accessibility: Close modal on Escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -207,7 +226,7 @@ function App() {
         </section>
 
         {/* =======================================================================
-            SECTION 3: PHOTO GALLERY (FOOD & AMBIENCE)
+            SECTION 3: PHOTO GALLERY (FOOD & AMBIENCE - SINGLE IMAGE SLIDER)
             ======================================================================= */}
         <section className="pt-1" aria-labelledby="gallery-heading">
           <header className="text-center mb-4 relative">
@@ -227,30 +246,71 @@ function App() {
             </div>
           </header>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {gallery.images.map((item, idx) => (
-              <div
-                key={idx}
-                className="group relative overflow-hidden rounded-[2px] border border-gold-primary/30 bg-navy-deep shadow-md cursor-pointer"
-                onClick={() => setSelectedGalleryImg(item)}
-              >
-                <div className="aspect-[4/3] w-full overflow-hidden">
-                  <img
-                    src={item.url}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="p-3 bg-navy-deep text-cream">
-                  <h3 className="font-serif-title text-sm font-semibold text-gold-light leading-snug">
-                    {item.title}
-                  </h3>
-                  <p className="text-[0.72rem] text-cream-dark/75 mt-0.5">
-                    {item.caption}
-                  </p>
-                </div>
+          {/* Single Image Carousel Showcase (One Image at a Time) */}
+          <div className="relative overflow-hidden rounded-[2px] border-2 border-gold-primary/40 bg-navy-deep shadow-xl group">
+            {/* Main Image Frame with exact 5304x7952 dimension ratio */}
+            <div
+              className="relative aspect-[5304/7952] w-full overflow-hidden bg-navy-dark cursor-pointer"
+              onClick={() => setSelectedGalleryImg(gallery.images[activeSlide])}
+            >
+              <img
+                key={activeSlide}
+                src={gallery.images[activeSlide].url}
+                alt={gallery.images[activeSlide].title}
+                className="w-full h-full object-cover transition-all duration-700 ease-in-out transform scale-100 group-hover:scale-105"
+              />
+
+              {/* Top Slide Counter Badge */}
+              <div className="absolute top-3 right-3 bg-navy-dark/80 text-gold-light border border-gold-border/60 font-caps-accent text-[0.7rem] font-bold tracking-wider px-2.5 py-1 rounded-[2px] backdrop-blur-sm shadow-md">
+                {activeSlide + 1} / {gallery.images.length}
               </div>
+
+              {/* Bottom Caption Bar */}
+              <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-navy-dark via-navy-deep/90 to-transparent p-4 text-cream">
+                <h3 className="font-serif-title text-base font-semibold text-gold-light leading-snug">
+                  {gallery.images[activeSlide].title}
+                </h3>
+                <p className="text-xs text-cream-dark/85 mt-0.5 font-light">
+                  {gallery.images[activeSlide].caption}
+                </p>
+              </div>
+            </div>
+
+            {/* Left Prev Arrow Button */}
+            <button
+              type="button"
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-navy-dark/75 text-gold-light border border-gold-primary/50 rounded-full hover:bg-gold-primary hover:text-navy-deep transition-all shadow-lg cursor-pointer active:scale-95"
+              onClick={prevSlide}
+              aria-label="Previous image"
+            >
+              ‹
+            </button>
+
+            {/* Right Next Arrow Button */}
+            <button
+              type="button"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-navy-dark/75 text-gold-light border border-gold-primary/50 rounded-full hover:bg-gold-primary hover:text-navy-deep transition-all shadow-lg cursor-pointer active:scale-95"
+              onClick={nextSlide}
+              aria-label="Next image"
+            >
+              ›
+            </button>
+          </div>
+
+          {/* Slide Indicator Dots (9 dots) */}
+          <div className="flex justify-center items-center gap-2 mt-3.5">
+            {gallery.images.map((_, idx) => (
+              <button
+                key={idx}
+                type="button"
+                className={`transition-all duration-300 rounded-full cursor-pointer ${
+                  activeSlide === idx
+                    ? 'w-6 h-2 bg-gold-dark'
+                    : 'w-2 h-2 bg-gold-primary/30 hover:bg-gold-primary/60'
+                }`}
+                onClick={() => setActiveSlide(idx)}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
             ))}
           </div>
         </section>
@@ -641,7 +701,7 @@ function App() {
             className="bg-navy-deep border border-gold-primary/40 rounded-[2px] max-w-[420px] w-full overflow-hidden shadow-2xl relative animate-in fade-in zoom-in-95 duration-200"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative aspect-[4/3] w-full">
+            <div className="relative aspect-[5304/7952] w-full">
               <img
                 src={selectedGalleryImg.url}
                 alt={selectedGalleryImg.title}

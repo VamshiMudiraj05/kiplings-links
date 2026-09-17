@@ -21,7 +21,7 @@ export const KIPLINGS_CONFIG = {
 
   // Primary Action Links
   links: {
-    // Menu PDF Link
+    // Menu PDF Link (points to the menu PDF in public/menu.pdf)
     menuPdfUrl: "/menu.pdf", 
     // Table Reservation Link (WhatsApp or direct booking)
     reserveTableUrl: "https://wa.me/917075179853?text=Hi%20Kiplings!%20I%20would%20like%20to%20reserve%20a%20table.",
@@ -78,26 +78,56 @@ export const KIPLINGS_CONFIG = {
     ]
   },
 
-  // Food & Ambience Photo Gallery
+  // Food & Ambience Photo Gallery (Displaying Images 1-9)
   gallery: {
     eyebrow: "THE EXPERIENCE",
     headline: "Food & Ambience",
     subtitle: "Slow mornings, live baking, artisan brews, and bistro comfort plates.",
     images: [
       {
-        url: "/food-coffee.jpg",
-        title: "Artisan Bakes & Brews",
-        caption: "Orange Americano & Flaky Pain au Chocolat"
+        url: "/gallery/1.jpg",
+        title: "Artisan Bakes & Pastries",
+        caption: "Freshly laminated daily viennoiserie"
       },
       {
-        url: "/bistro-ambience.jpg",
-        title: "European Bistro Vibe",
-        caption: "Warm ambiance crafted for long conversations"
+        url: "/gallery/2.jpg",
+        title: "Bistro Delights",
+        caption: "Crafted fresh with everyday indulgence"
       },
       {
-        url: "/inorbit-croissant.jpg",
-        title: "Live Kitchen Creations",
-        caption: "Freshly laminated viennoiserie daily"
+        url: "/gallery/3.jpg",
+        title: "Signature Coffee",
+        caption: "Specialty brews & slow mornings"
+      },
+      {
+        url: "/gallery/4.jpg",
+        title: "Warm Ambience",
+        caption: "European deli bistro setting"
+      },
+      {
+        url: "/gallery/5.jpg",
+        title: "House Desserts",
+        caption: "Decadent in-house bakes"
+      },
+      {
+        url: "/gallery/6.jpg",
+        title: "Comfort Plates",
+        caption: "Sandwiches, pastas & savory bowls"
+      },
+      {
+        url: "/gallery/7.jpg",
+        title: "Pastry Kitchen",
+        caption: "Live oven aroma & golden layers"
+      },
+      {
+        url: "/gallery/8.jpg",
+        title: "Bistro Table",
+        caption: "The art of staying a little longer"
+      },
+      {
+        url: "/gallery/9.jpg",
+        title: "Kiplings Marketplace",
+        caption: "Everyday luxury served fresh"
       }
     ]
   },
