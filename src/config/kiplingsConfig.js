@@ -22,18 +22,17 @@ export const KIPLINGS_CONFIG = {
   // Primary Action Links
   links: {
     // Menu PDF Link (points to the menu PDF in public/menu.pdf)
-    menuPdfUrl: "/menu.pdf", 
-    // Table Reservation Link (WhatsApp or direct booking)
-    reserveTableUrl: "https://wa.me/917075179853?text=Hi%20Kiplings!%20I%20would%20like%20to%20reserve%20a%20table.",
+    menuPdfUrl: "/menu.pdf",
+    // Table Reservation Link
+    reserveTableUrl: "https://www.district.in/dining/hyderabad/kiplings-d%C3%A9li-bistro-hitech-city/book",
     // Online Ordering URLs
     orderOnline: {
-      zomato: "https://www.zomato.com/hyderabad/kiplings-deli-bistro-madhapur",
-      swiggy: "https://www.swiggy.com/restaurants/kiplings-deli-bistro-inorbit-mall-hyderabad",
-      directOrder: "https://wa.me/917075179853?text=Hi%20Kiplings%2C%20I%20would%20like%20to%20place%20an%20order"
+      zomato: "https://www.swiggy.com/menu/1431945?source=sharing",
+      swiggy: "https://www.swiggy.com/menu/1431945?source=sharing"
     },
     // Google Maps & Reviews
     googleMaps: "https://maps.google.com/?q=Inorbit+Mall+Hyderabad+Level+4+Kiplings",
-    googleReviews: "https://maps.google.com/?q=Inorbit+Mall+Hyderabad+Level+4+Kiplings",
+    googleReviews: "https://www.google.com/search?sca_esv=8f55d1c39308862b&rlz=1C5CHFA_enIN1027IN1027&sxsrf=APpeQnsdCfyEP3hbCpcswt_nh3EYPX1fMg:1789663569407&si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_wrgP6B8xj7kHM91oMWHMSFPc5ZATsgFDdYEPuzTjOMlBB5Bp1lhWEhiQyiGxFC3av1UN15FpDcDtO-726ZIVmvdANa8KvLveow8IOTWA1-2lExSKg%3D%3D&q=Kiplings+D%C3%A9li+%26+Bistro+Reviews&sa=X&ved=2ahUKEwizl8mqiPaWAxXqleEIHZu5AyIQ0bkNegQIORAH&biw=1440&bih=812&dpr=1",
     // WhatsApp Contact
     whatsappNumber: "917075179853",
     whatsappDisplay: "+91 70751 79853",
@@ -63,7 +62,7 @@ export const KIPLINGS_CONFIG = {
       hours: "Mon - Sun · 11:00 AM – 11:00 PM",
       phone: "+91 70751 79853",
       email: "hi@kiplingsdeli.com",
-      image: "/inorbit-croissant.jpg",
+      image: "/hyderabad.jpg",
       mapsUrl: "https://maps.google.com/?q=Inorbit+Mall+Hyderabad+Level+4+Kiplings"
     },
     upcomingLocations: [
@@ -86,48 +85,39 @@ export const KIPLINGS_CONFIG = {
     images: [
       {
         url: "/gallery/1.jpg",
-        title: "Artisan Bakes & Pastries",
-        caption: "Freshly laminated daily viennoiserie"
+        title: "A Place for Stories"
       },
       {
         url: "/gallery/2.jpg",
-        title: "Bistro Delights",
-        caption: "Crafted fresh with everyday indulgence"
+        title: "The Art of Staying Longer"
       },
       {
         url: "/gallery/3.jpg",
-        title: "Signature Coffee",
-        caption: "Specialty brews & slow mornings"
+        title: "Signature Interiors"
       },
       {
         url: "/gallery/4.jpg",
-        title: "Warm Ambience",
-        caption: "European deli bistro setting"
+        title: "Warm Ambience"
       },
       {
         url: "/gallery/5.jpg",
-        title: "House Desserts",
-        caption: "Decadent in-house bakes"
+        title: "House Desserts"
       },
       {
         url: "/gallery/6.jpg",
-        title: "Comfort Plates",
-        caption: "Sandwiches, pastas & savory bowls"
+        title: "Comfort Plates"
       },
       {
         url: "/gallery/7.jpg",
-        title: "Pastry Kitchen",
-        caption: "Live oven aroma & golden layers"
+        title: "Pastry Kitchen"
       },
       {
         url: "/gallery/8.jpg",
-        title: "Bistro Table",
-        caption: "The art of staying a little longer"
+        title: "Bistro Table"
       },
       {
         url: "/gallery/9.jpg",
-        title: "Kiplings Marketplace",
-        caption: "Everyday luxury served fresh"
+        title: "Kiplings Marketplace"
       }
     ]
   },

@@ -11,13 +11,13 @@ function App() {
   // Single Image Carousel State for Food & Ambience
   const [activeSlide, setActiveSlide] = useState(0)
 
-  // Auto-play slider effect for gallery (slides every 4 seconds)
+  // Preload all gallery images in browser cache for instant slide switching
   useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % gallery.images.length)
-    }, 4000)
-    return () => clearInterval(timer)
-  }, [gallery.images.length])
+    gallery.images.forEach((img) => {
+      const i = new Image()
+      i.src = img.url
+    })
+  }, [gallery.images])
 
   const nextSlide = () => {
     setActiveSlide((prev) => (prev + 1) % gallery.images.length)
@@ -258,21 +258,13 @@ function App() {
                 src={gallery.images[activeSlide].url}
                 alt={gallery.images[activeSlide].title}
                 className="w-full h-full object-cover transition-all duration-700 ease-in-out transform scale-100 group-hover:scale-105"
+                loading="eager"
+                decoding="async"
               />
 
               {/* Top Slide Counter Badge */}
               <div className="absolute top-3 right-3 bg-navy-dark/80 text-gold-light border border-gold-border/60 font-caps-accent text-[0.7rem] font-bold tracking-wider px-2.5 py-1 rounded-[2px] backdrop-blur-sm shadow-md">
                 {activeSlide + 1} / {gallery.images.length}
-              </div>
-
-              {/* Bottom Caption Bar */}
-              <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-navy-dark via-navy-deep/90 to-transparent p-4 text-cream">
-                <h3 className="font-serif-title text-base font-semibold text-gold-light leading-snug">
-                  {gallery.images[activeSlide].title}
-                </h3>
-                <p className="text-xs text-cream-dark/85 mt-0.5 font-light">
-                  {gallery.images[activeSlide].caption}
-                </p>
               </div>
             </div>
 
@@ -657,31 +649,6 @@ function App() {
                   Order →
                 </span>
               </a>
-
-              {/* WhatsApp Direct */}
-              <a
-                href={links.orderOnline.directOrder}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-between p-4 bg-white border border-navy-deep/15 rounded-[2px] transition-all hover:border-gold-dark hover:-translate-y-0.5 hover:shadow-md group"
-              >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-[2px] flex items-center justify-center bg-navy-deep text-gold-light font-caps-accent font-extrabold text-xs">
-                    WA
-                  </div>
-                  <div>
-                    <h4 className="font-serif-title text-[1.05rem] font-semibold text-navy-deep">
-                      Direct Order
-                    </h4>
-                    <p className="text-xs text-navy-surface-light/80 mt-0.5">
-                      WhatsApp Table Pickup / Pre-Order
-                    </p>
-                  </div>
-                </div>
-                <span className="font-caps-accent text-xs font-bold tracking-wider text-gold-dark group-hover:translate-x-0.5 transition-transform">
-                  Chat →
-                </span>
-              </a>
             </div>
           </div>
         </div>
@@ -716,13 +683,10 @@ function App() {
                 ×
               </button>
             </div>
-            <div className="p-4 text-center">
+            <div className="p-3 text-center">
               <h3 className="font-serif-title text-base font-semibold text-gold-light">
                 {selectedGalleryImg.title}
               </h3>
-              <p className="text-xs text-cream-dark/80 mt-1">
-                {selectedGalleryImg.caption}
-              </p>
             </div>
           </div>
         </div>
