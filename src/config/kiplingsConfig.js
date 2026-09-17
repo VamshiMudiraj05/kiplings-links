@@ -97,7 +97,7 @@ export const KIPLINGS_CONFIG = {
       },
       {
         url: "/gallery/4.jpg",
-        title: "Warm Ambience"
+        title: "All-Day Comfort"
       },
       {
         url: "/gallery/5.jpg",
